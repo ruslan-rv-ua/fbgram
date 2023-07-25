@@ -47,10 +47,11 @@ repos:
 
 
 # pytest
-# - repo: local
-#   hooks:
-#   - id: unittest
-#     name: run unit tests
-#     language: system
-#     pass_filenames: false
-#     entry: poetry run coverage run -m pytest
+- repo: local
+  hooks:
+  - id: unittest
+    name: run unit tests
+    language: system
+    pass_filenames: false
+    # entry: poetry run coverage run -m pytest
+    entry: poetry run pytest

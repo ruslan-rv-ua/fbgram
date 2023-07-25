@@ -9,6 +9,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.11"
 playwright = "^1.36.0"
+piccolo = "^0.119.0"
 
 
 [tool.poetry.group.dev.dependencies]
