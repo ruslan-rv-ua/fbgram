@@ -68,14 +68,14 @@ class FBBrowser:
         return False
 
     def is_logged_in(self) -> bool:
-            """
-            Checks if the user is currently logged in to Facebook.
+        """
+        Checks if the user is currently logged in to Facebook.
 
-            Returns:
-                A boolean indicating whether the user is logged in or not.
-            """
-            login_input = self.feed_page.query_selector(self.LOGIN_INPUT_SELECTOR)
-            return login_input is None
+        Returns:
+            A boolean indicating whether the user is logged in or not.
+        """
+        login_input = self.feed_page.query_selector(self.LOGIN_INPUT_SELECTOR)
+        return login_input is None
 
     def get_feed_page_html(self) -> str:
         """
