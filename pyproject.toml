@@ -15,6 +15,7 @@ playwright = "^1.36.0"
 black = "^23.7.0"
 mypy = "^1.4.1"
 pytest = "^7.4.0"
+pre-commit = "^3.3.3"
 
 [build-system]
 requires = ["poetry-core"]
@@ -40,3 +41,38 @@ exclude = '''
 )/
 '''
 
+# flake8 configs
+[tool.flake8]
+# ignore = ['E231', 'E241']
+# per-file-ignores = [
+#     '__init__.py:F401',
+# ]
+max-line-length = 88
+count = true
+
+# mypy configs
+[mypy]
+python_version = 3.11
+# follow_imports = skip
+# follow_imports_for_stubs = false
+
+# pycln configs
+[tool.pycln]
+path = "fbgram"
+# include=".*_util\.py$"
+# exclude=".*_test\.py$"
+expand_stars=true
+verbose=true
+diff=true
+all=true
+no_gitignore=false
+disable_all_dunder_policy=false
+
+# isort configs
+[tool.isort]
+line_length = 88
+# multi_line_output = 3
+# include_trailing_comma = true
+# force_grid_wrap = 0
+# use_parentheses = true
+# ensure_newline_before_comments = true
