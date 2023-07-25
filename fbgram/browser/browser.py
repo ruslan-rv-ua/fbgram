@@ -65,6 +65,7 @@ class FBBrowser:
         self.stop()
         if isinstance(exception_value, TimeoutError):
             return True
+        return False
 
     def is_logged_in(self) -> bool:
             """
