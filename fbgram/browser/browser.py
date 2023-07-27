@@ -4,7 +4,7 @@ from typing import Self
 
 from playwright._impl._api_types import TimeoutError  # type: ignore
 from playwright._impl._driver import compute_driver_executable  # type: ignore
-from playwright._impl._driver import get_driver_env  # type: ignore
+from playwright._impl._driver import get_driver_env
 from playwright.sync_api import sync_playwright  # type: ignore
 
 
@@ -13,6 +13,14 @@ class FBBrowserError(Exception):
 
 
 class NoMoreFeedPagesException(FBBrowserError):
+    pass
+
+
+class BrowserAlreadyRunningException(FBBrowserError):
+    pass
+
+
+class BrowserNotRunningException(FBBrowserError):
     pass
 
 
@@ -30,12 +38,11 @@ class FBBrowser:
         self.executable_path = FBBrowser.find_executable()
         self.user_data_dir = Path(__file__).resolve().parent / self.BROWSER_DATA_DIR
 
-        self.playwright = None
+        self.playwright = sync_playwright().start()
         self.browser = None
         self.feed_page = None
 
     def start(self) -> None:
-        self.playwright = sync_playwright().start()
         engine = getattr(
             self.playwright,
             self.BROWSER_NAME,
@@ -57,25 +64,14 @@ class FBBrowser:
         if self.browser:
             self.browser.close()
             self.browser = None
-        if self.playwright:
-            self.playwright.stop()
-            self.playwright = None
 
     def __enter__(self) -> Self:
         self.start()
         return self
 
-    def __exit__(
-        self,
-        exception_class,
-        exception_value,
-        traceback,
-    ):
+    def __exit__(self, exception_class, exception_value, traceback):
         self.stop()
-        if isinstance(
-            exception_value,
-            TimeoutError,
-        ):
+        if isinstance(exception_value, TimeoutError):
             return True
         return False
 
@@ -101,7 +97,7 @@ class FBBrowser:
             A string containing the HTML content of the current Facebook feed page.
         """
         if self.feed_page is None:
-            raise FBBrowserError("Browser is not running")
+            raise BrowserNotRunningException("Browser is not running")
         return self.feed_page.content()
 
     def goto_next_feed_page(
@@ -114,7 +110,7 @@ class FBBrowser:
             NoMoreFeedPagesException: If there are no more feed pages to navigate to.
         """
         if self.feed_page is None:
-            raise FBBrowserError("Browser is not running")
+            raise BrowserNotRunningException("Browser is not running")
         self.feed_page.click(self.MORE_POSTS_LINK_SELECTOR)
 
     ###############################################################################

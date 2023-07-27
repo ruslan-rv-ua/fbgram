@@ -54,6 +54,7 @@ count = true
 # mypy configs
 [mypy]
 python_version = 3.11
+strict = false
 # follow_imports = skip
 # follow_imports_for_stubs = false
 
