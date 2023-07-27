@@ -11,7 +11,7 @@ repos:
   rev: 22.10.0
   hooks:
   - id: black
-    args: [--config=pyproject.toml]
+    args: ["--config=pyproject.toml", "fbgram"]
 
 # pydocstyle : checking compliance with Python docstring conventions
 # - repo: https://github.com/pycqa/pydocstyle
