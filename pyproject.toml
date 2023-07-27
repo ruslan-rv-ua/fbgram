@@ -9,6 +9,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.11"
 playwright = "^1.36.0"
+piccolo = {extras = ["sqlite"], version = "^0.119.0"}
 
 
 [tool.poetry.group.dev.dependencies]
@@ -53,6 +54,7 @@ count = true
 # mypy configs
 [mypy]
 python_version = 3.11
+strict = false
 # follow_imports = skip
 # follow_imports_for_stubs = false
 
