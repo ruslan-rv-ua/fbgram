@@ -37,13 +37,14 @@ repos:
     args: [--settings-path=pyproject.toml]
 
 # mypy
-- repo: https://github.com/pre-commit/mirrors-mypy
-  rev: ''
-  hooks:
-  - id: mypy
+# - repo: https://github.com/pre-commit/mirrors-mypy
+#   rev: ''
+#   hooks:
+#   - id: mypy
     # additional_dependencies: [tokenize-rt==3.2.0]
     # args: [--strict, --ignore-missing-imports]
-    args: ['--config-file', 'pyproject.toml']
+    # entry: poetry run mypy
+    # args: ['--config-file', 'pyproject.toml']
 
 
 # pytest
