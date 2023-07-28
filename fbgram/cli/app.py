@@ -24,8 +24,8 @@ def docs():
 
 
 app.command(name="setup")(setup)
-app.command(name="grab")(grab)
-app.command(name="send")(send)
+app.command(name="grab", hidden=True)(grab)
+app.command(name="send", hidden=True)(send)
 
 
 @app.command(name="news")
