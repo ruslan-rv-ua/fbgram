@@ -9,6 +9,7 @@ from rich.prompt import Prompt
 from telegram.telegram import TelegramBot
 
 MAX_SETUP_TELEGRAM_BOT_ATTEMPTS = 3
+MAX_LOGIN_ATTEMPTS = 3
 
 
 ###############################################
@@ -94,13 +95,32 @@ def setup_browser():
 
 
 def login_to_facebook():
-    print("Logging in to facebook")
+    with FBBrowser() as browser:
+        if browser.is_logged_in():
+            rich.print("[green]You are already logged in to Facebook.[/green]")
+            return
+
+    attempts = MAX_LOGIN_ATTEMPTS
+    while True:
+        rich.print("Log in to Facebook in the browser window that just opened.")
+        rich.print("You should see your feed after logging in.")
+        rich.print("Press any key when you are done.")
+        with FBBrowser(headless=False) as browser:
+            attempts -= 1
+            typer.pause()
+            if browser.is_logged_in():
+                break
+        if attempts == 0:
+            rich.print(f"You failed to log in to Facebook {MAX_LOGIN_ATTEMPTS} times.")
+            raise typer.Abort()
+        rich.print("Seems like you are not logged in yet.")
+        rich.print('Try again or press "Ctrl+C" to exit.')
+
+    rich.print("[green]You are logged in to Facebook.[/green]\n")
 
 
 def setup():
-    """Setup the CLI
-
-    This command is executed when no other subcommand is passed."""
+    """Set up FBGram"""
     setup_telegram_bot()
     setup_browser()
     login_to_facebook()
