@@ -141,7 +141,6 @@ class FBBrowser:
         return completed_process.returncode
 
     @classmethod
-    @classmethod
     def is_installed(cls) -> bool:
         """
         Check if the latest version of the browser specified by the class constant BROWSER_NAME is installed.
