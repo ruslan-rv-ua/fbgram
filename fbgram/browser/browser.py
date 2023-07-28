@@ -38,15 +38,15 @@ class FBBrowser:
         self.executable_path = FBBrowser.find_executable()
         self.user_data_dir = Path(__file__).resolve().parent / self.BROWSER_DATA_DIR
 
-        self.playwright = sync_playwright().start()
+        self.sync_playwright = None
         self.browser = None
         self.feed_page = None
 
     def start(self) -> None:
-        engine = getattr(
-            self.playwright,
-            self.BROWSER_NAME,
-        )
+        if self.sync_playwright is not None or self.browser is not None:
+            raise BrowserAlreadyRunningException("Browser is already running")
+        self.sync_playwright = sync_playwright().start()
+        engine = getattr(self.sync_playwright, self.BROWSER_NAME)
         try:
             self.browser = engine.launch_persistent_context(
                 user_data_dir=self.user_data_dir,
@@ -61,9 +61,13 @@ class FBBrowser:
         self.feed_page.goto(self.FB_RECENT_POSTS_URL)
 
     def stop(self) -> None:
-        if self.browser:
-            self.browser.close()
-            self.browser = None
+        if self.sync_playwright is None or self.browser is None:
+            raise BrowserNotRunningException("Browser is not running")
+        self.browser.close()
+        self.sync_playwright.stop()  # type: ignore
+        self.feed_page = None
+        self.browser = None
+        self.sync_playwright = None
 
     def __enter__(self) -> Self:
         self.start()
