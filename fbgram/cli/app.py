@@ -11,7 +11,7 @@ app = typer.Typer(
 
 @app.callback()
 def docs():
-    """# This is the main command of the CLI
+    """# FBGram — Facebook to Telegram
 
     This command is executed when no other subcommand is passed.
 

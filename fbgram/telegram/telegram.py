@@ -34,5 +34,5 @@ class TelegramBot:
 
     @classmethod
     def get_updates(cls, token: str) -> list:
-        updates = cls.notifier.get_updates(token=token)
+        updates = cls.notifier.updates(token=token)
         return updates
