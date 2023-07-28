@@ -136,3 +136,5 @@ dmypy.json
 fbgram_data/
 firefox*/
 chrome*/
+.links/
+browser/data/
