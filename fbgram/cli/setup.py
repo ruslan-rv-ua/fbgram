@@ -23,7 +23,7 @@ def is_telegram_bot_set_up():
 
 def setup_telegram_bot() -> None:
     if is_telegram_bot_set_up():
-        rich.print("Telegram bot is set up")
+        rich.print("[green]Telegram bot is set up.[/green]")
         return
     rich.print("You have to set up a telegram bot to use fbgram.")
     rich.print("To do so, follow these steps:")
@@ -70,6 +70,9 @@ def setup_telegram_bot() -> None:
     rich.print("[green]Telegram bot set up successfully[/green]]\n")
 
 
+###############################################
+# Browser setup
+###############################################
 def setup_browser():
     print("Setting up browser")
 
