@@ -3,6 +3,7 @@ from time import sleep
 
 import rich
 import typer
+from browser.browser import FBBrowser
 from db.models import Settings
 from rich.prompt import Prompt
 from telegram.telegram import TelegramBot
@@ -74,7 +75,22 @@ def setup_telegram_bot() -> None:
 # Browser setup
 ###############################################
 def setup_browser():
-    print("Setting up browser")
+    if FBBrowser.is_installed():
+        rich.print(
+            f"[green]Browser is installed. Using {FBBrowser.BROWSER_NAME.upper()}."
+        )
+        return
+    rich.print(
+        f"Browser is not installed. Installing {FBBrowser.BROWSER_NAME.upper()}..."
+    )
+    try:
+        FBBrowser.install()
+    except Exception as e:
+        rich.print(f"[red]Error: {e}[/red]")
+        raise typer.Abort()
+    rich.print(
+        f"[green]Browser {FBBrowser.BROWSER_NAME.upper()} installed successfully.[/green]\n"
+    )
 
 
 def login_to_facebook():
