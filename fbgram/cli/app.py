@@ -24,9 +24,9 @@ def docs():
     ...
 
 
-app.command(name="setup")(setup)
 app.command(name="grab")(grab)
 
+app.command(name="setup")(setup)
 app.command(name="send")(send)
 app.command(name="info")(info)
 
