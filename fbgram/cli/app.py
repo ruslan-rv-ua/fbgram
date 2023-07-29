@@ -1,6 +1,7 @@
 import typer
 
 from .grab import grab
+from .info import info
 from .send import send
 from .setup import setup
 
@@ -23,9 +24,11 @@ def docs():
     ...
 
 
+app.command(name="grab")(grab)
+
 app.command(name="setup")(setup)
-app.command(name="grab", hidden=True)(grab)
-app.command(name="send", hidden=True)(send)
+app.command(name="send")(send)
+app.command(name="info")(info)
 
 
 @app.command(name="news")
