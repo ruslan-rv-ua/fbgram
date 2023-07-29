@@ -4,6 +4,7 @@ from piccolo.query.methods.select import Count
 from rich.console import Console
 from rich.table import Table
 
+from fbgram import __version__
 from fbgram.browser.browser import FBBrowser
 
 console = Console()
@@ -14,6 +15,11 @@ def info_facilities():
     table.add_column("Item", style="dim")
     table.add_column("Value")
     table.add_column("Description")
+
+    table.add_row(
+        "FBGram version",
+        __version__,
+    )
 
     table.add_row(
         "Telegram Bot is set up",
