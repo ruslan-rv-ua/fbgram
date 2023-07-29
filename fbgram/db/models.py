@@ -2,6 +2,7 @@ from enum import Enum
 from typing import Self
 
 from piccolo.columns import JSON, Text, Timestamp, Varchar
+from piccolo.query.methods.select import Count
 from piccolo.table import Table
 
 from .db import database
@@ -19,6 +20,13 @@ class Post(Table, db=database, tablename="posts"):
     short_html = Text()
     metadata = JSON()
     status = Varchar(default=PostStatus.NEW, length=16, choices=PostStatus)
+
+    @classmethod
+    def get_posts_count_by_status(cls) -> dict[PostStatus, int]:
+        statuses_count = (
+            Post.select(Post.status, Count()).group_by(Post.status).run_sync()
+        )
+        return {item["status"]: item["count"] for item in statuses_count}
 
 
 class Settings(Table, db=database, tablename="settings"):  #! TODO: make it singleton
