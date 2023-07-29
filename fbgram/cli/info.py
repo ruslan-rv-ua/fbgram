@@ -3,6 +3,7 @@ from db.models import Post, PostStatus
 from rich.console import Console
 from rich.table import Table
 
+from fbgram import __version__
 from fbgram.browser.browser import FBBrowser
 
 console = Console()
@@ -12,6 +13,11 @@ def info_facilities():
     table = Table(title="FBGram Info", show_header=False, header_style="bold")
     table.add_column("Item")
     table.add_column("Value")
+
+    table.add_row(
+        "FBGram version",
+        __version__,
+    )
 
     table.add_row(
         "Telegram Bot is set up",

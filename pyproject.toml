@@ -6,6 +6,8 @@ authors = ["Ruslan Iskov <ruslan.rv.ua@gmail.com>"]
 license = "MIT"
 readme = "README.md"
 
+[tool.poetry_bumpversion.file."fbgram/__init__.py"]
+
 [tool.poetry.dependencies]
 python = "^3.11"
 playwright = "^1.36.0"
